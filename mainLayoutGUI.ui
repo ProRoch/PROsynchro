@@ -6,19 +6,19 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1114</width>
-    <height>874</height>
+    <width>1127</width>
+    <height>1028</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QTreeWidget" name="treeWidget">
+   <widget class="QTreeWidget" name="treeMainPC">
     <property name="geometry">
      <rect>
-      <x>60</x>
-      <y>110</y>
+      <x>40</x>
+      <y>290</y>
       <width>256</width>
       <height>671</height>
      </rect>
@@ -32,8 +32,8 @@
    <widget class="QTreeWidget" name="treeWidget_2">
     <property name="geometry">
      <rect>
-      <x>350</x>
-      <y>110</y>
+      <x>330</x>
+      <y>280</y>
       <width>256</width>
       <height>671</height>
      </rect>
@@ -82,8 +82,8 @@
    <widget class="QTreeWidget" name="treeWidget_3">
     <property name="geometry">
      <rect>
-      <x>650</x>
-      <y>120</y>
+      <x>640</x>
+      <y>290</y>
       <width>256</width>
       <height>671</height>
      </rect>
@@ -161,13 +161,80 @@
      </size>
     </property>
    </widget>
+   <widget class="QGroupBox" name="groupBox">
+    <property name="geometry">
+     <rect>
+      <x>350</x>
+      <y>10</y>
+      <width>321</width>
+      <height>231</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>GroupBox</string>
+    </property>
+    <widget class="QWidget" name="layoutWidget">
+     <property name="geometry">
+      <rect>
+       <x>140</x>
+       <y>30</y>
+       <width>84</width>
+       <height>134</height>
+      </rect>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QRadioButton" name="radioButton">
+        <property name="text">
+         <string>RadioButton</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QRadioButton" name="radioButton_2">
+        <property name="text">
+         <string>RadioButton</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QRadioButton" name="radioButton_3">
+        <property name="text">
+         <string>RadioButton</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QRadioButton" name="radioButton_4">
+        <property name="text">
+         <string>RadioButton</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QRadioButton" name="radioButton_5">
+        <property name="text">
+         <string>RadioButton</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QRadioButton" name="radioButton_6">
+        <property name="text">
+         <string>RadioButton</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1114</width>
+     <width>1127</width>
      <height>21</height>
     </rect>
    </property>
