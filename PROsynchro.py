@@ -160,8 +160,35 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
     def btnRefreshView(self):
         self.lblWorking.hide()
+        self.treeMainPC.clear()
+        self.treeMainWS.clear()
+        self.treeMainPAF.clear()
+        # for WS
+        ssh_clientWS = paramiko.SSHClient()
+        ssh_clientWS.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+        ssh_clientWS.load_host_keys(os.path.expanduser(os.path.join("~", ".ssh", "known_hosts")))
 
-        i=0
+        try:
+            if cfg.host_WS["pkey"] == False:
+                ssh_clientWS.connect(hostname=cfg.host_WS["addr"], username=cfg.host_WS["user"], password=cfg.host_WS["pass"])
+            else:
+                k = paramiko.RSAKey.from_private_key_file(cfg.host_WS["pkey"])
+                ssh_clientWS.connect(hostname=cfg.host_WS["addr"], username=cfg.host_WS["user"], pkey=k)
+        except:
+            print("error during open ssh connection for read folders on WS")
+        ssh_clientPAF = paramiko.SSHClient()
+        ssh_clientPAF.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+        ssh_clientPAF.load_host_keys(os.path.expanduser(os.path.join("~", ".ssh", "known_hosts")))
+
+        try:
+            if cfg.host_PAF["pkey"] == False:
+                ssh_clientPAF.connect(hostname=cfg.host_PAF["addr"], username=cfg.host_PAF["user"], password=cfg.host_PAF["pass"])
+            else:
+                k = paramiko.RSAKey.from_private_key_file(cfg.host_PAF["pkey"])
+                ssh_clientPAF.connect(hostname=cfg.host_PAF["addr"], username=cfg.host_PAF["user"], pkey=k)
+        except:
+            print("error during open ssh connection for read folders on PAF")
+
         for workingFolder in cfg.sync_folder:
             treeLocal = QtWidgets.QTreeWidgetItem(self.treeMainPC)
             treeWS = QtWidgets.QTreeWidgetItem(self.treeMainWS)
@@ -184,21 +211,19 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
                     item_list.append(file)
                     child = QtWidgets.QTreeWidgetItem(treeLocal)
                     child.setText(0, file)
-
-            """
             #for WS
-            ssh_client = paramiko.SSHClient()
-            ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-            ssh_client.load_host_keys(os.path.expanduser(os.path.join("~", ".ssh", "known_hosts")))
-            try:
-                ssh_client.connect(hostname=cfg.host_WS["addr"], username=cfg.host_WS["user"], pkey= cfg.host_WS["pkey"])
-            except:
-                ssh_client.connect(hostname=cfg.host_WS["addr"], username=cfg.host_WS["user"], pkey= cfg.host_WS["pass"])
-            sftp = ssh_client.open_sftp()
-            item_list = sftp.listdir(remoteDir)
-    
+            sftpWS = ssh_clientWS.open_sftp()
+            itemListWS = sftpWS.listdir(workingFolder["dir_WS"])
+            for file in itemListWS:
+                child = QtWidgets.QTreeWidgetItem(treeWS)
+                child.setText(0, file)
             #for PAF
-            """
+            sftpPAF = ssh_clientPAF.open_sftp()
+            itemListPAF = sftpPAF.listdir(workingFolder["dir_PAF"])
+            for file in itemListPAF:
+                child = QtWidgets.QTreeWidgetItem(treePAF)
+                child.setText(0, file)
+
 
     def btn_exit(self):
         print("btn btnExit clicked.")
